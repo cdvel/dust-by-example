@@ -5,15 +5,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dust starter</title>
-
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -24,7 +21,7 @@
   </head>
   <body>
     <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
     <div class="container">
@@ -36,13 +33,17 @@
         </ul>
         <h3 class="text-muted">dust starter</h3>
       </div>
-
       <div class="jumbotron">
         <h1>'Allo, 'Allo!</h1>
         <p class="lead">Always a pleasure scaffolding your apps.</p>
         <p><a class="btn btn-lg btn-success" href="#">Splendid!</a></p>
       </div>
-
+      <div class="row marketing">
+        <div class="col-lg-12">
+          <h1 id="output"></h1>
+          Compiled directly in the browser
+        </div>
+      </div>
       <div class="row marketing">
         <div class="col-lg-6">
           <h4>HTML5 Boilerplate</h4>
@@ -58,7 +59,6 @@
           
         </div>
       </div>
-
       <div class="footer">
         <p>♥ from the Yeoman team</p>
       </div>
@@ -66,14 +66,13 @@
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
-
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -93,6 +92,24 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="/bower_components/dustjs-linkedin/dist/dust-full.min.js"></script>
+    
+    <!-- browser compiled template -->
+    <script type="text/dust" id="hello">Hello {world}!</script>
+    <script type="text/javascript">
+    var src = document.getElementById('hello').textContent;
+    // Compile the template under the name 'hello'
+    var compiled = dust.compile(src, 'hello');
+    // Register the template with Dust
+    dust.loadSource(compiled);
+    // Render the template
+    dust.render('hello', { world: "Jupiter" }, function(err, out) {
+    // `out` contains the rendered output.
+    document.getElementById('output').textContent = out;
+    });
+    </script>
+    <!-- end template -->
+    
     <!-- endbuild -->
     
     <!-- build:js scripts/main.js -->
