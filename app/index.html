@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>dust starter</title>
+    <title>Dust by Example</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/vendor.css -->
@@ -31,36 +31,21 @@
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <h3 class="text-muted">dust starter</h3>
-      </div>
-      <div class="jumbotron">
-        <h1>'Allo, 'Allo!</h1>
-        <p class="lead">Always a pleasure scaffolding your apps.</p>
-        <p><a class="btn btn-lg btn-success" href="#">Splendid!</a></p>
+        <h3 class="text-muted">Dust by Example</h3>
       </div>
       <div class="row marketing">
         <div class="col-lg-12">
-          <h1 id="output"></h1>
-          Compiled directly in the browser
-        </div>
-      </div>
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>HTML5 Boilerplate</h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-          
-          <h4>Sass</h4>
-          <p>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.</p>
-          
-          <h4>Bootstrap</h4>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-          <h4>Modernizr</h4>
-          <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
-          
+          <h4>Compiled directly in the browser</h4>
+          <h2 id="output"></h2>
+          <h2 id="output2"></h2>
+          <h2 id="output3"></h2>
+          <hr/>
+          <h4>Precompiled template in the browser</h4>
+          <h2 id="output4"></h2>
         </div>
       </div>
       <div class="footer">
-        <p>♥ from the Yeoman team</p>
+        <p>More at <a href="http://www.dustjs.com/">dustjs.com</a></p>
       </div>
     </div>
     
@@ -108,6 +93,41 @@
     document.getElementById('output').textContent = out;
     });
     </script>
+
+    <!-- or  -->
+    <script type="text/dust" id="goodbye">Goodbye {world}!</script>
+    <script type="text/javascript">
+      var src = document.getElementById('goodbye').textContent; 
+
+      dust.renderSource(src, { world: "Alpha Centauri" }, function(err, out) { 
+        document.getElementById('output2').textContent = out;
+        });
+
+    </script>
+
+    <!-- or (no template name)-->
+    <script type="text/dust" id="hello-again">Hello Again {world}!</script>
+
+    <script type="text/javascript">
+      var src = document.getElementById('hello-again').textContent; 
+
+      var compiled = dust.compile(src);
+      var tmpl = dust.loadSource(compiled);
+      dust.render(tmpl, { world: "Betelgeuse" }, function(err, out) { 
+        document.getElementById('output3').textContent = out;
+      });
+    </script>
+
+
+    <!-- precompiled templates -->
+    <script type="text/javascript" src="lib/hello-world.js"></script>
+    <script type="text/javascript">
+    // The templates are already registered, so we are ready to render!
+    dust.render('hello-world', { world: "Saturn" }, function(err, out) {
+      document.getElementById('output4').textContent = out;
+    })
+    </script>
+
     <!-- end template -->
     
     <!-- endbuild -->

@@ -4,6 +4,7 @@ const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
 const del = require('del');
 const wiredep = require('wiredep').stream;
+const dust = require('gulp-dust');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -94,9 +95,15 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
+gulp.task('dust', () => {
+  return gulp.src('app/views/*.dust')
+    .pipe(dust())
+    .pipe(gulp.dest('app/lib'));
+});
+
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
+gulp.task('serve', ['styles', 'scripts', 'fonts', 'dust'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -117,7 +124,8 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/scripts/**/*.js', ['scripts']);
   gulp.watch('app/fonts/**/*', ['fonts']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('app/views/**/*', ['dust']);
+  gulp.watch('bower.json', ['wiredep', 'fonts', 'dust']);
 });
 
 gulp.task('serve:dist', () => {
