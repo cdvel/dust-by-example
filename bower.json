@@ -4,8 +4,10 @@
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
-    "dustjs-linkedin": "~2.7.2"
- },
+    "dustjs-linkedin": "~2.7.2",
+    "fs": "~1.0.1",
+    "express": "~4.14.0"
+  },
   "overrides": {
     "bootstrap-sass": {
       "main": [
